@@ -51,7 +51,7 @@ public class SignUpActivity extends AppCompatActivity {
                 country.isEmpty() || city.isEmpty()){
             Toast.makeText(this, getString(R.string.required), Toast.LENGTH_LONG).show();
         }
-        else if(!password.equals(password2)){
+        else if(password.equals(password2)){
             Toast.makeText(this, getString(R.string.password_mismatch), Toast.LENGTH_LONG).show();
         }else if(!country.equals(getString(R.string.country_prompt))){
             Toast.makeText(this, getString(R.string.country_prompt), Toast.LENGTH_LONG).show();

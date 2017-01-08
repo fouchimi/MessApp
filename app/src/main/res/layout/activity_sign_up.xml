@@ -22,21 +22,20 @@
 
     <EditText
         android:id="@+id/password"
-        android:text="@string/password"
+        android:inputType="textPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/password"/>
 
     <EditText
         android:id="@+id/password2"
-        android:text="@string/re_enter_password"
+        android:inputType="textPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/re_enter_password"/>
 
     <EditText
         android:id="@+id/email"
-        android:text="@string/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/email"/>
@@ -54,7 +53,6 @@
 
     <EditText
         android:id="@+id/city"
-        android:text="@string/city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/city"/>
