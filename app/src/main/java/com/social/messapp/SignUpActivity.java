@@ -56,9 +56,9 @@ public class SignUpActivity extends AppCompatActivity {
         }else if(!country.equals(getString(R.string.country_prompt))){
             Toast.makeText(this, getString(R.string.country_prompt), Toast.LENGTH_LONG).show();
         }else {
-            currentUser.put(Constants.USERNAME, username);
-            currentUser.put(Constants.PASSWORD, password);
-            currentUser.put(Constants.EMAIL, email);
+            currentUser.setUsername(username);
+            currentUser.setPassword(password);
+            currentUser.setEmail(email);
             currentUser.put(Constants.COUNTRY, country);
             currentUser.put(Constants.CITY, city);
 
