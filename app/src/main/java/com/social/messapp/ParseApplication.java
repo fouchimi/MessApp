@@ -19,7 +19,7 @@ public class ParseApplication extends Application {
         // Add your initialization code here
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId(getApplicationContext().getString(R.string.app_id))
-                .clientKey(null)
+                .clientKey("")
                 .addNetworkInterceptor(new ParseLogInterceptor())
                 .server(getApplicationContext().getString(R.string.server))
                 .build()
