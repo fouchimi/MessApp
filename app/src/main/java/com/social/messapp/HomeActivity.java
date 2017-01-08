@@ -1,5 +1,6 @@
 package com.social.messapp;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,11 +20,14 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import com.parse.ParseUser;
+
 public class HomeActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     private ViewPager mViewPager;
+    private ParseUser mCurrentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,16 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
+        switch (id){
+            case R.id.action_settings :
+                return true;
+            case R.id.action_logout:
+                ParseUser.logOut();
+                mCurrentUser = ParseUser.getCurrentUser();
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                return true;
+        }
 
         if (id == R.id.action_settings) {
             return true;

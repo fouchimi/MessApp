@@ -24,6 +24,7 @@
     <string name="user_saving_failed">Saving user failed.</string>
     <string name="username_taken">Username already taken</string>
     <string name="user_saved">User Saved</string>
+    <string name="action_logout">Log Out</string>
 
 
     <string name="app_id">LHkNxyEd8sTQmUtNxyEdsBJaUv</string>
