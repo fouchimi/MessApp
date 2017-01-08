@@ -28,7 +28,7 @@
 
     <string name="app_id">LHkNxyEd8sTQmUtNxyEdsBJaUv</string>
     <string name="master_key">kBxQmIsA43P9Oo73Sa1n9</string>
-    <string name="server">https://messapp34.herokuapp.com/parse</string>
+    <string name="server">https://messapp34.herokuapp.com/parse/</string>
 
     <string-array name="country_arrays">
         <item>Choose a country</item>
