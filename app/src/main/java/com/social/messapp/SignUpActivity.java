@@ -10,6 +10,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
@@ -77,17 +78,11 @@ public class SignUpActivity extends AppCompatActivity {
                 public void done(ParseException e) {
                     if (e != null) {
 
-                        Toast.makeText(SignUpActivity.this,
-                                getString(R.string.user_saving_failed), Toast.LENGTH_SHORT).show();
-                        Log.w(TAG,
-                                "Error : " + e.getMessage() + ":::" + e.getCode());
+                        Toast.makeText(SignUpActivity.this, getString(R.string.user_saving_failed), Toast.LENGTH_SHORT).show();
+                        Log.w(TAG, "Error : " + e.getMessage() + ":::" + e.getCode());
 
                         if (e.getCode() == 202) {
-
-                            Toast.makeText(
-                                    SignUpActivity.this,
-                                    getString(R.string.username_taken),
-                                    Toast.LENGTH_LONG).show();
+                            Toast.makeText(SignUpActivity.this, getString(R.string.username_taken), Toast.LENGTH_LONG).show();
                             resetForm();
                         }
 
@@ -95,8 +90,13 @@ public class SignUpActivity extends AppCompatActivity {
                         Toast.makeText(SignUpActivity.this, getString(R.string.user_saved),
                                 Toast.LENGTH_SHORT).show();
                         resetForm();
-                        Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
-                        startActivity(intent);
+                        ParseUser.logInInBackground(currentUser.getUsername(), password, new LogInCallback() {
+                            @Override
+                            public void done(ParseUser user, ParseException e) {
+                                Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
+                                startActivity(intent);
+                            }
+                        });
 
                     }
                 }

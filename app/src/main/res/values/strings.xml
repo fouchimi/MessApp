@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">MessApp</string>
-    <string name="facebook_app_id">1625286017498567</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
@@ -15,7 +14,6 @@
     <string name="chats">Chats</string>
     <string name="friends">Friends</string>
     <string name="register">Register</string>
-    <string name="fb_login_protocol_scheme">fb1625286017498567</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="country_prompt">Choose a country</string>
@@ -27,9 +25,22 @@
     <string name="action_logout">Log Out</string>
 
 
+    <!-- FACEBOOK CONFIGURATION INFO -->
+    <string name="facebook_app_id">1386549861396391</string>
+    <string name="fb_login_protocol_scheme">fb1386549861396391</string>
+
+    <!-- HEROKU APP CONFIGURATION -->
     <string name="app_id">LHkNxyEd8sTQmUtNxyEdsBJaUv</string>
     <string name="master_key">kBxQmIsA43P9Oo73Sa1n9</string>
     <string name="server">https://messapp34.herokuapp.com/parse/</string>
+    <string name="auth_canceled">Authentication canceled</string>
+    <string name="facebook_error">Oops, an error occured ...</string>
+
+    <string name="default_email">messapp34@gmail.com</string>
+    <string name="default_password">messapp34984178</string>
+    <string name="login_text">Logging in ...</string>
+
+    <!-- TWITTER CONFIGURATION INFO -->
 
     <string-array name="country_arrays">
         <item>Choose a country</item>
@@ -275,4 +286,5 @@
         <item>Zambia</item>
         <item>Zimbabwe</item>
     </string-array>
+    <string name="title_activity_main">MainActivity</string>
 </resources>

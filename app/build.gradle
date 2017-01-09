@@ -12,7 +12,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
 repositories {
-    maven { url 'https://maven.fabric.io/public'}
+    maven { url 'https://maven.fabric.io/public' }
 }
 
 android {
@@ -39,6 +39,9 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile('com.twitter.sdk.android:twitter:2.3.1@aar') {
+        transitive = true;
+    }
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.parse:parse-android:1.+'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
@@ -46,8 +49,5 @@ dependencies {
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.parse.bolts:bolts-android:1.+'
     compile 'com.parse:parseinterceptors:0.0.2'
-    compile('com.twitter.sdk.android:twitter:2.3.1@aar'){
-        transitive = true;
-    }
     testCompile 'junit:junit:4.12'
 }
