@@ -71,7 +71,7 @@ public class SignUpActivity extends AppCompatActivity {
             currentUser.setPassword(password);
             currentUser.setEmail(email);
             currentUser.put(Constants.COUNTRY, country);
-            currentUser.put(Constants.CITY, city);
+            currentUser.put(Constants.LOCATION, city);
 
             currentUser.signUpInBackground(new SignUpCallback() {
                 @Override

@@ -41,6 +41,11 @@
     <string name="login_text">Logging in ...</string>
 
     <!-- TWITTER CONFIGURATION INFO -->
+    <string name="twitter_key">4ixKWD74X5wo9aDfi7xa3CyaJ</string>
+    <string name="twitter_secret">OiN4o2t4aYs8AUA5tePsWOQfyySvoo0eUV6sesNsxSESbYfJd6</string>
+    <string name="fabric_api_key">95d8ccf8bb6121dfaa8a18179ee8b81f679d81dd</string>
+    <string name="twitter_failure">Failed to authenticate with Twitter.</string>
+    <string name="twitter_email_failed">Failed to fetch twitter email .</string>
 
     <string-array name="country_arrays">
         <item>Choose a country</item>

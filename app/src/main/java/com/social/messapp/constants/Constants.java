@@ -9,5 +9,5 @@ public class Constants {
     public static final String PASSWORD = "password";
     public static final String EMAIL = "email";
     public static final String COUNTRY = "country";
-    public static final String CITY = "city";
+    public static final String LOCATION = "location";
 }

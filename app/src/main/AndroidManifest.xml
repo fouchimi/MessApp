@@ -44,6 +44,7 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="95d8ccf8bb6121dfaa8a18179ee8b81f679d81dd" />
@@ -56,6 +57,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+                <!-- <data android:scheme="https" android:host="fabric.io" /> -->
             </intent-filter>
 
         </activity>
