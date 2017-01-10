@@ -15,15 +15,20 @@
     <string name="friends">Friends</string>
     <string name="register">Register</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="country_prompt">Choose a country</string>
     <string name="password_mismatch">Password doesn\'t match</string>
     <string name="required">Enter all fields</string>
     <string name="user_saving_failed">Saving user failed.</string>
     <string name="username_taken">Username already taken</string>
     <string name="user_saved">User Saved</string>
-    <string name="action_logout">Log Out</string>
+    <string name="default_friend_text">No friend added yet</string>
+    <string name="default_chat_text">No chat yet</string>
+    <string name="no_members">No members</string>
 
+    <!-- MENU CONFIGURATION -->
+    <string name="action_logout">Log Out</string>
+    <string name="action_profile">Profile</string>
+    <string name="action_members">Add Friend(s)</string>
 
     <!-- FACEBOOK CONFIGURATION INFO -->
     <string name="facebook_app_id">1386549861396391</string>
@@ -292,4 +297,5 @@
         <item>Zimbabwe</item>
     </string-array>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_member">Members</string>
 </resources>

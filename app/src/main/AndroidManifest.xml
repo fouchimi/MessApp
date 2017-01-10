@@ -44,7 +44,6 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
-
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="95d8ccf8bb6121dfaa8a18179ee8b81f679d81dd" />
@@ -53,14 +52,17 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
                 <!-- <data android:scheme="https" android:host="fabric.io" /> -->
             </intent-filter>
-
         </activity>
+        <activity
+            android:name=".MemberActivity"
+            android:label="@string/title_activity_member"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

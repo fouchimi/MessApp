@@ -80,6 +80,7 @@ public class LoginFragment extends Fragment {
                                 final String id = object.optString("id");
                                 final String email = object.optString("email");
                                 final String name = object.optString("name");
+                                final String profile_picture = Constants.FACEBOOK_BASE_URL + "/"+id + "/picture?type=large";
                                 final String username = (email.isEmpty()) ? name+"_"+id : email;
                                 final String password = getString(R.string.default_password);
                                 ParseQuery<ParseUser> queryUser = ParseUser.getQuery();
@@ -93,6 +94,7 @@ public class LoginFragment extends Fragment {
                                                 mCurrentUser = new ParseUser();
                                                 mCurrentUser.setUsername(username);
                                                 mCurrentUser.setPassword(password);
+                                                mCurrentUser.put(Constants.PROFILE_PICTURE, profile_picture);
                                                 if(email.isEmpty()) mCurrentUser.setEmail(name+"@messapp.com");
                                                 else mCurrentUser.setEmail(email);
 
@@ -205,9 +207,10 @@ public class LoginFragment extends Fragment {
                         String name = userResult.data.name;
                         String email = userResult.data.email;
                         final String username = userResult.data.screenName;
+                        final String profile_picture = userResult.data.profileImageUrl;
                         Log.d(TAG, userResult.data.screenName);
                         Log.d(TAG, name +" " + email);
-                        final String parseEmail = (email == null) ? userResult.data.screenName+"@twitter.com" : email;
+                        final String parseEmail = (email == null) ? userResult.data.screenName+"@messapp.com" : email;
                         final String password = getString(R.string.default_password);
                         ParseQuery<ParseUser> queryUser = ParseUser.getQuery();
                         queryUser.whereEqualTo(Constants.USERNAME, username);
@@ -220,6 +223,7 @@ public class LoginFragment extends Fragment {
                                         mCurrentUser.setUsername(username);
                                         mCurrentUser.setEmail(parseEmail);
                                         mCurrentUser.setPassword(password);
+                                        mCurrentUser.put(Constants.PROFILE_PICTURE, profile_picture);
 
                                         mCurrentUser.signUpInBackground(new SignUpCallback() {
                                             @Override

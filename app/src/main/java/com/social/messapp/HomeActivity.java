@@ -67,6 +67,10 @@ public class HomeActivity extends AppCompatActivity {
         switch (id){
             case R.id.action_settings :
                 return true;
+            case R.id.action_members:
+                Intent intent = new Intent(this, MemberActivity.class);
+                startActivity(intent);
+                return true;
             case R.id.action_logout:
                 ParseUser.logOut();
                 LoginManager.getInstance().logOut();
