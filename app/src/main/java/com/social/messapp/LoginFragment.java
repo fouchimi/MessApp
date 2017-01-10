@@ -107,7 +107,7 @@ public class LoginFragment extends Fragment {
                                                             }
 
                                                         } else {
-                                                            Toast.makeText(getActivity(), getString(R.string.user_saved), Toast.LENGTH_SHORT).show();
+                                                            //Toast.makeText(getActivity(), getString(R.string.user_saved), Toast.LENGTH_SHORT).show();
                                                             ParseUser.logInInBackground(username, password, new LogInCallback() {
                                                                 @Override
                                                                 public void done(ParseUser user, ParseException e) {
@@ -209,7 +209,6 @@ public class LoginFragment extends Fragment {
                         Log.d(TAG, name +" " + email);
                         final String parseEmail = (email == null) ? userResult.data.screenName+"@twitter.com" : email;
                         final String password = getString(R.string.default_password);
-                        //Toast.makeText(getActivity(), name + " " + email, Toast.LENGTH_LONG).show();
                         ParseQuery<ParseUser> queryUser = ParseUser.getQuery();
                         queryUser.whereEqualTo(Constants.USERNAME, username);
                         queryUser.findInBackground(new FindCallback<ParseUser>() {
@@ -226,6 +225,7 @@ public class LoginFragment extends Fragment {
                                             @Override
                                             public void done(ParseException e) {
                                                 if(e == null){
+                                                    Toast.makeText(getActivity(), getString(R.string.login_text), Toast.LENGTH_LONG).show();
                                                     ParseUser.logInInBackground(username, password, new LogInCallback() {
                                                         @Override
                                                         public void done(ParseUser user, ParseException e) {
@@ -245,6 +245,7 @@ public class LoginFragment extends Fragment {
                                     }else {
                                         // Go To home Screen
                                         if(users.size() == 1){
+                                            Toast.makeText(getActivity(), getString(R.string.login_text), Toast.LENGTH_LONG).show();
                                             ParseUser.logInInBackground(username, password, new LogInCallback() {
                                                 @Override
                                                 public void done(ParseUser user, ParseException e) {
