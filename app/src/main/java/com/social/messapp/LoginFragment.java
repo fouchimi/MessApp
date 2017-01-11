@@ -41,6 +41,7 @@ import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 import com.twitter.sdk.android.core.models.User;
 import com.twitter.sdk.android.core.services.AccountService;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
@@ -83,8 +84,15 @@ public class LoginFragment extends Fragment {
                                 final String profile_picture = Constants.FACEBOOK_BASE_URL + "/"+id + "/picture?type=large";
                                 final String username = (email.isEmpty()) ? name+"_"+id : email;
                                 final String password = getString(R.string.default_password);
+                                String location="";
+                                try {
+                                    location = object.getJSONObject("location").getString("name");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                                 ParseQuery<ParseUser> queryUser = ParseUser.getQuery();
                                 queryUser.whereEqualTo(Constants.USERNAME, username);
+                                final String finalLocation = location;
                                 queryUser.findInBackground(new FindCallback<ParseUser>() {
                                     @Override
                                     public void done(List<ParseUser> users, ParseException e) {
@@ -95,6 +103,7 @@ public class LoginFragment extends Fragment {
                                                 mCurrentUser.setUsername(username);
                                                 mCurrentUser.setPassword(password);
                                                 mCurrentUser.put(Constants.PROFILE_PICTURE, profile_picture);
+                                                mCurrentUser.put(Constants.LOCATION, finalLocation);
                                                 if(email.isEmpty()) mCurrentUser.setEmail(name+"@messapp.com");
                                                 else mCurrentUser.setEmail(email);
 
@@ -186,7 +195,7 @@ public class LoginFragment extends Fragment {
         signInButton = (Button) view.findViewById(R.id.loginButton);
         registerButton = (Button) view.findViewById(R.id.registerButton);
 
-        fbLoginButton.setReadPermissions(Arrays.asList("email,public_profile"));
+        fbLoginButton.setReadPermissions(Arrays.asList("email,public_profile,user_location"));
         fbLoginButton.setFragment(this);
 
         fbLoginButton.registerCallback(mCallbackManager, mCallBack);
@@ -208,6 +217,7 @@ public class LoginFragment extends Fragment {
                         String email = userResult.data.email;
                         final String username = userResult.data.screenName;
                         final String profile_picture = userResult.data.profileImageUrl;
+                        final String location = userResult.data.location;
                         Log.d(TAG, userResult.data.screenName);
                         Log.d(TAG, name +" " + email);
                         final String parseEmail = (email == null) ? userResult.data.screenName+"@messapp.com" : email;
@@ -224,7 +234,7 @@ public class LoginFragment extends Fragment {
                                         mCurrentUser.setEmail(parseEmail);
                                         mCurrentUser.setPassword(password);
                                         mCurrentUser.put(Constants.PROFILE_PICTURE, profile_picture);
-
+                                        mCurrentUser.put(Constants.LOCATION, location);
                                         mCurrentUser.signUpInBackground(new SignUpCallback() {
                                             @Override
                                             public void done(ParseException e) {

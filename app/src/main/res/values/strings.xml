@@ -21,9 +21,10 @@
     <string name="user_saving_failed">Saving user failed.</string>
     <string name="username_taken">Username already taken</string>
     <string name="user_saved">User Saved</string>
-    <string name="default_friend_text">No friend added yet</string>
-    <string name="default_chat_text">No chat yet</string>
+    <string name="default_friend_text">No friend(s)</string>
+    <string name="default_chat_text">No chat(s)</string>
     <string name="no_members">No members</string>
+    <string name="lives_at">Lives at: </string>
 
     <!-- MENU CONFIGURATION -->
     <string name="action_logout">Log Out</string>
@@ -298,4 +299,6 @@
     </string-array>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_member">Members</string>
+
+    <string name="default_profile_url">http://abs.twimg.com/sticky/default_profile_images/default_profile_3_normal.png</string>
 </resources>

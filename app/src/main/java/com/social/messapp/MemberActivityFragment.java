@@ -1,5 +1,6 @@
 package com.social.messapp;
 
+import android.graphics.Typeface;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -10,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -18,6 +18,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.social.messapp.adapters.MemberAdapter;
 import com.social.messapp.constants.Constants;
+import com.social.messapp.utils.DividerItemDecoration;
 
 import java.util.List;
 
@@ -43,13 +44,17 @@ public class MemberActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Typeface typeFace = Typeface.createFromAsset(getActivity().getAssets(), "fonts/RobotoCondensed-Bold.ttf");
         View view =  inflater.inflate(R.layout.fragment_member, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.members_recycler_view);
-
+        emptyTextView = (TextView) view.findViewById(R.id.empty_view);
+        emptyTextView.setTypeface(typeFace);
+        RecyclerView.ItemDecoration itemDecoration = new
+                DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL_LIST);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        emptyTextView = (TextView) view.findViewById(R.id.empty_view);
+        mRecyclerView.addItemDecoration(itemDecoration);
 
         return view;
     }

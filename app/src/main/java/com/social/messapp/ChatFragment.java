@@ -1,19 +1,22 @@
 package com.social.messapp;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 
 public class ChatFragment extends Fragment {
 
+    private TextView emptyTextView;
+
     public ChatFragment() {
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,8 +26,11 @@ public class ChatFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        return inflater.inflate(R.layout.fragment_chat, container, false);
+        Typeface typeFace = Typeface.createFromAsset(getActivity().getAssets(), "fonts/RobotoCondensed-Bold.ttf");
+        View view = inflater.inflate(R.layout.fragment_chat, container, false);
+        emptyTextView = (TextView) view.findViewById(R.id.empty_view);
+        emptyTextView.setTypeface(typeFace);
+        return view;
     }
 
     public void onButtonPressed(Uri uri) {

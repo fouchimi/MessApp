@@ -5,8 +5,13 @@
     tools:context="com.social.messapp.FriendsFragment">
 
     <TextView
+        android:id="@+id/empty_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:textSize="@dimen/default_text_size"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/boldGrey"
+        android:gravity="center"
         android:text="@string/default_friend_text" />
 
 </FrameLayout>
