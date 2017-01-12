@@ -1,13 +1,18 @@
 package com.social.messapp;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.graphics.Typeface;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -44,6 +49,7 @@ public class MemberActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         Typeface typeFace = Typeface.createFromAsset(getActivity().getAssets(), "fonts/RobotoCondensed-Bold.ttf");
         View view =  inflater.inflate(R.layout.fragment_member, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.members_recycler_view);
@@ -59,6 +65,33 @@ public class MemberActivityFragment extends Fragment {
         return view;
     }
 
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_member, menu);
+        SearchManager searchManager =
+                (SearchManager) getContext().getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getActivity().getComponentName()));
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                return false;
+            }
+        });
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -68,6 +101,7 @@ public class MemberActivityFragment extends Fragment {
     private void fetchMembers(){
         ParseQuery<ParseUser> query = ParseUser.getQuery();
         query.whereNotEqualTo(Constants.USERNAME, mCurrentUser.getUsername());
+        query.orderByAscending(Constants.USERNAME);
         query.setLimit(500);
         query.findInBackground(new FindCallback<ParseUser>() {
             public void done(List<ParseUser> memberList, ParseException e) {

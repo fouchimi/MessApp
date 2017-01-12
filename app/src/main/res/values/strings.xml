@@ -299,6 +299,10 @@
     </string-array>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_member">Members</string>
+    <string name="search_hint">Search for friends</string>
+    <string name="app_label">MessApp</string>
+    <string name="search_title"></string>
+
 
     <string name="default_profile_url">http://abs.twimg.com/sticky/default_profile_images/default_profile_3_normal.png</string>
 </resources>

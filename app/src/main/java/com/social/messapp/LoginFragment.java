@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -66,6 +67,7 @@ public class LoginFragment extends Fragment {
     private AccessTokenTracker mAccessTokenTracker;
     private TwitterLoginButton twitterLoginButton;
     private ParseUser mCurrentUser;
+    private ProgressBar mSpinner;
 
 
     private CallbackManager mCallbackManager;
@@ -194,11 +196,25 @@ public class LoginFragment extends Fragment {
         twitterLoginButton = (TwitterLoginButton) view.findViewById(R.id.twitter_login_button);
         signInButton = (Button) view.findViewById(R.id.loginButton);
         registerButton = (Button) view.findViewById(R.id.registerButton);
+        mSpinner = (ProgressBar) view.findViewById(R.id.progressBar);
 
         fbLoginButton.setReadPermissions(Arrays.asList("email,public_profile,user_location"));
         fbLoginButton.setFragment(this);
 
         fbLoginButton.registerCallback(mCallbackManager, mCallBack);
+        fbLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                runThread();
+            }
+        });
+
+        twitterLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                runThread();
+            }
+        });
         twitterLoginButton.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
@@ -330,6 +346,24 @@ public class LoginFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void runThread() {
+        new Thread() {
+            public void run() {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(1000);
+                            mSpinner.setVisibility(View.VISIBLE);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        }.start();
     }
 
     @Override

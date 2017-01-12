@@ -12,4 +12,8 @@ public class Constants {
     public static final String LOCATION = "location";
     public static final String FACEBOOK_BASE_URL ="https://graph.facebook.com";
     public static final String PROFILE_PICTURE ="thumbnail";
+    public static final String SENDER = "sender";
+    public static final String RECEIVER = "receiver";
+    public static final String CHECKED = "checked";
+    public static final String FRIENDS_TABLE = "Friends";
 }
