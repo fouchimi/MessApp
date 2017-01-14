@@ -32,7 +32,7 @@ public class HomeActivity extends AppCompatActivity {
 
         mCurrentUser = ParseUser.getCurrentUser();
 
-        Toast.makeText(this, mCurrentUser.getUsername(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, mCurrentUser.getUsername(), Toast.LENGTH_LONG).show();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

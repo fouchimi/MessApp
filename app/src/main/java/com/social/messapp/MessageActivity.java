@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
@@ -17,6 +16,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.social.messapp.adapters.ChatListAdapter;
 import com.social.messapp.classes.ChatMessage;
 import com.social.messapp.constants.Constants;
@@ -28,8 +28,7 @@ public class MessageActivity extends AppCompatActivity {
 
     private static final String TAG = MessageActivity.class.getSimpleName();
     private ListView mMessageListView;
-    private TextView emptyTextView;
-    private ParseUser mCurrentUser, mReceiver;
+    private ParseUser mCurrentUser;
     private String receiverId;
     private EditText mMessageEditText;
     private Button mSendButton;
@@ -63,6 +62,7 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     public void fetchChatMessages(final String receiverId){
+        chats.clear();
         Log.d(TAG, "CURRENT USER_ID: "+ mCurrentUser.getObjectId());
         Log.d(TAG, "FRIEND USER_ID: " + receiverId);
 
@@ -88,12 +88,12 @@ public class MessageActivity extends AppCompatActivity {
                     Log.d(TAG, "found: " + rows.size() + " records");
                     for(ParseObject row : rows){
                         ChatMessage chat = new ChatMessage();
-                        if(row.getObjectId().equals(mCurrentUser.getObjectId())){
+                        if(row.getString(Constants.SENDER).equals(mCurrentUser.getObjectId())){
                             chat.setSender(mCurrentUser.getObjectId());
                             chat.setReceiver(receiverId);
                         }else {
-                            chat.setSender(mCurrentUser.getObjectId());
-                            chat.setReceiver(receiverId);
+                            chat.setSender(receiverId);
+                            chat.setReceiver(mCurrentUser.getObjectId());
                         }
                         chat.setMessage(row.getString(Constants.MESSAGE));
                         chat.setDate(row.getString(Constants.CREATED_AT));
@@ -113,6 +113,33 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     public void saveMessage(View view){
+        String messageText = mMessageEditText.getText().toString();
+        Log.d(TAG, "Send button pressed!!!");
+        ParseObject newRecord = new ParseObject(Constants.CHATS_TABLE);
+        newRecord.put(Constants.SENDER, mCurrentUser.getObjectId());
+        newRecord.put(Constants.RECEIVER, receiverId);
+        newRecord.put(Constants.MESSAGE, messageText);
+        ChatMessage newChat = new ChatMessage();
+        newChat.setSender(mCurrentUser.getObjectId());
+        newChat.setReceiver(receiverId);
+        newChat.setMessage(messageText);
+        chats.add(newChat);
+
+        newRecord.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e == null){
+                    mMessageEditText.setText("");
+                    Log.d(TAG, "Record saved");
+                    mAdapter = new ChatListAdapter(MessageActivity.this, chats, mCurrentUser.getObjectId());
+                    mMessageListView.setAdapter(mAdapter);
+                    mAdapter.notifyDataSetChanged();
+                }else {
+                    Log.d(TAG, e.getMessage());
+                    Toast.makeText(MessageActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
 

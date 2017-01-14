@@ -11,5 +11,5 @@
     <color name="focused_purple_button">#d6c3ed</color>
     <color name="white">#FFFFFF</color>
     <color name="owner_text_color">#0085b2</color>
-    <color name="friend_text_color">#32cbff</color>
+    <color name="friend_text_color">#00bfff</color>
 </resources>

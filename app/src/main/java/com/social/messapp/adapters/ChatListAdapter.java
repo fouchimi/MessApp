@@ -50,7 +50,7 @@ public class ChatListAdapter extends BaseAdapter {
 
         LayoutInflater mInflater  = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
-        if (chats.get(position).getSender().equals(ParseUser.getCurrentUser().getUsername())) {
+        if (chats.get(position).getSender().equals(mCurrentUser)) {
             convertView = mInflater.inflate(R.layout.list_row_layout_right, null);
         } else {
             convertView = mInflater.inflate(R.layout.list_row_layout_left, null);
