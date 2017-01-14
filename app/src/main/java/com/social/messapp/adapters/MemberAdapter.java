@@ -11,11 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.parse.CountCallback;
-import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
-import com.parse.ParseACL;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -26,6 +24,7 @@ import com.social.messapp.constants.Constants;
 import com.social.messapp.utils.CircleTransform;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -79,13 +78,15 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberView
                 transform(new CircleTransform()).into(memberViewHolder.personPhoto);
 
         final ParseQuery<ParseObject> query = ParseQuery.getQuery(Constants.FRIENDS_TABLE);
-        query.whereEqualTo(Constants.SENDER, ParseUser.getCurrentUser().getUsername());
+        query.whereEqualTo(Constants.SENDER, ParseUser.getCurrentUser());
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> receivers, ParseException e) {
                 if(e == null){
                     for(ParseObject receiver : receivers){
-                        if(receiver.getString(Constants.RECEIVER).equals(username)){
+                        ParseUser rec = (ParseUser) receiver.get(Constants.RECEIVER);
+                       Log.d(TAG, "Receiver Id: " + rec.getObjectId());
+                        if(rec.getObjectId().equals(person.getObjectId()) && receiver.getBoolean(Constants.CHECKED)){
                             memberViewHolder.personChecked.setChecked(true);
                         }
                     }
@@ -104,72 +105,159 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberView
                 if(memberViewHolder.personChecked.isChecked()){
                     //Add to friend table
                     final ParseQuery<ParseObject> query = ParseQuery.getQuery(Constants.FRIENDS_TABLE);
-                    query.whereEqualTo(Constants.SENDER, ParseUser.getCurrentUser().getUsername());
-                    query.whereEqualTo(Constants.RECEIVER, username);
-                    query.setLimit(1);
+                    query.whereEqualTo(Constants.SENDER, ParseUser.getCurrentUser());
+                    query.whereEqualTo(Constants.RECEIVER, person);
+                    query.whereEqualTo(Constants.SENDER, person);
+                    query.whereEqualTo(Constants.RECEIVER, ParseUser.getCurrentUser());
                     query.findInBackground(new FindCallback<ParseObject>() {
                         @Override
-                        public void done(List<ParseObject> row, ParseException e) {
-                            Log.d(TAG, "row: " + row.size());
-                            if(row.isEmpty()){
-                                //Go ahead and add data to table
-                                ParseObject friendTable = new ParseObject(Constants.FRIENDS_TABLE);
-                                friendTable.put(Constants.SENDER, ParseUser.getCurrentUser().getUsername());
-                                friendTable.put(Constants.RECEIVER, username);
-                                friendTable.put(Constants.CHECKED, true);
-                                friendTable.saveInBackground(new SaveCallback() {
-                                    @Override
-                                    public void done(ParseException e) {
-                                        if(e == null){
-                                            Toast.makeText(mContext, cleanedUserName[0] + " has been added in your friend list", Toast.LENGTH_LONG).show();
-                                        }else {
-                                            Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
-                                            Log.d(TAG, e.getMessage());
+                        public void done(List<ParseObject> rows, ParseException e) {
+                            if(e == null){
+                                Log.d(TAG, "row: " + rows.size());
+                                if(rows.isEmpty()){
+                                    //Go ahead and add data to table
+                                    List<ParseObject> newRows = new ArrayList<>();
+                                    ParseObject firstRow = new ParseObject(Constants.FRIENDS_TABLE);
+                                    firstRow.put(Constants.SENDER, ParseUser.getCurrentUser());
+                                    firstRow.put(Constants.RECEIVER, person);
+                                    firstRow.put(Constants.CHECKED, true);
+
+                                    ParseObject secondRow = new ParseObject(Constants.FRIENDS_TABLE);
+                                    secondRow.put(Constants.SENDER, person);
+                                    secondRow.put(Constants.RECEIVER, ParseUser.getCurrentUser());
+                                    secondRow.put(Constants.CHECKED, true);
+
+                                    newRows.add(firstRow);
+                                    newRows.add(secondRow);
+                                    ParseObject.saveAllInBackground(newRows, new SaveCallback() {
+                                        @Override
+                                        public void done(ParseException e) {
+                                            if(e == null){
+                                                Toast.makeText(mContext, cleanedUserName[0] + " has been added in your friend list", Toast.LENGTH_LONG).show();
+                                            }else {
+                                                Log.d(TAG, e.getMessage());
+                                                Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
+                                            }
                                         }
-                                    }
-                                });
-                            }else if(row.size() == 1){
-                                row.get(0).put(Constants.CHECKED, true);
-                                Log.d(TAG, "Checked value: "+ row.get(0).getString(Constants.CHECKED));
-                                row.get(0).saveInBackground(new SaveCallback() {
-                                    @Override
-                                    public void done(ParseException e) {
-                                        if(e == null){
-                                            Toast.makeText(mContext, cleanedUserName[0] + " has been added in your friend list", Toast.LENGTH_LONG).show();
+                                    });
+                                }else{
+                                    Log.d(TAG, "Friendship was already established");
+                                    final ParseQuery<ParseObject> query = ParseQuery.getQuery(Constants.FRIENDS_TABLE);
+                                    query.whereEqualTo(Constants.SENDER, ParseUser.getCurrentUser());
+                                    query.whereEqualTo(Constants.RECEIVER, person);
+                                    query.setLimit(1);
+                                    query.getFirstInBackground(new GetCallback<ParseObject>() {
+                                        @Override
+                                        public void done(ParseObject row, ParseException e) {
+                                            if(e == null){
+                                                // launch second query;
+                                                Log.d(TAG, row.getObjectId());
+                                                row.put(Constants.CHECKED, true);
+                                                row.saveInBackground(new SaveCallback() {
+                                                    @Override
+                                                    public void done(ParseException e) {
+                                                        if(e == null){
+                                                            final ParseQuery<ParseObject> query = ParseQuery.getQuery(Constants.FRIENDS_TABLE);
+                                                            query.whereEqualTo(Constants.SENDER, person);
+                                                            query.whereEqualTo(Constants.RECEIVER, ParseUser.getCurrentUser());
+                                                            query.setLimit(1);
+                                                            query.getFirstInBackground(new GetCallback<ParseObject>() {
+                                                                @Override
+                                                                public void done(ParseObject row, ParseException e) {
+                                                                    if(e == null){
+                                                                        Log.d(TAG, row.getObjectId());
+                                                                        row.put(Constants.CHECKED, true);
+                                                                        row.saveInBackground(new SaveCallback() {
+                                                                            @Override
+                                                                            public void done(ParseException e) {
+                                                                                if(e == null){
+                                                                                    Log.d(TAG, "Friendship removed");
+                                                                                    Toast.makeText(mContext, cleanedUserName[0] + " has been added to your friend list", Toast.LENGTH_LONG).show();
+                                                                                }else {
+                                                                                    Log.d(TAG, e.getMessage());
+                                                                                    Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
+                                                                                }
+                                                                            }
+                                                                        });
+                                                                    }else{
+                                                                        Log.d(TAG, e.getMessage());
+                                                                        Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
+                                                                    }
+                                                                }
+                                                            });
+                                                        }else {
+                                                            Log.d(TAG, e.getMessage());
+                                                            Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
+                                                        }
+                                                    }
+                                                });
+                                            }else {
+                                                Log.d(TAG, e.getMessage());
+                                                Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
+                                            }
                                         }
-                                    }
-                                });
-                            }else{
-                                Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
+                                    });
+                                }
+                            }else {
                                 Log.d(TAG, e.getMessage());
+                                Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
                             }
                         }
                     });
                 }else {
                     //Set value of checked to false
                     final ParseQuery<ParseObject> query = ParseQuery.getQuery(Constants.FRIENDS_TABLE);
-                    query.whereEqualTo(Constants.SENDER, ParseUser.getCurrentUser().getUsername());
-                    query.whereEqualTo(Constants.RECEIVER, username);
+                    query.whereEqualTo(Constants.SENDER, ParseUser.getCurrentUser());
+                    query.whereEqualTo(Constants.RECEIVER, person);
                     query.setLimit(1);
                     query.getFirstInBackground(new GetCallback<ParseObject>() {
                         @Override
                         public void done(ParseObject row, ParseException e) {
                             if(e == null){
-                                if(row != null){
-                                    Log.d(TAG, row.getObjectId());
-                                    Log.d(TAG, row.getString(Constants.RECEIVER));
-                                    Log.d(TAG, row.getString(Constants.SENDER));
-                                    row.put(Constants.CHECKED, false);
-                                    row.saveInBackground(new SaveCallback() {
-                                        @Override
-                                        public void done(ParseException e) {
-                                            if(e == null){
-                                                Log.d(TAG, "Friend deleted");
-                                                Toast.makeText(mContext, cleanedUserName[0] + " has been removed from your friends", Toast.LENGTH_LONG).show();
-                                            }
+                                // launch second query;
+                                Log.d(TAG, row.getObjectId());
+                                row.put(Constants.CHECKED, false);
+                                row.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if(e == null){
+                                            final ParseQuery<ParseObject> query = ParseQuery.getQuery(Constants.FRIENDS_TABLE);
+                                            query.whereEqualTo(Constants.SENDER, person);
+                                            query.whereEqualTo(Constants.RECEIVER, ParseUser.getCurrentUser());
+                                            query.setLimit(1);
+                                            query.getFirstInBackground(new GetCallback<ParseObject>() {
+                                                @Override
+                                                public void done(ParseObject row, ParseException e) {
+                                                    if(e == null){
+                                                      Log.d(TAG, row.getObjectId());
+                                                        row.put(Constants.CHECKED, false);
+                                                        row.saveInBackground(new SaveCallback() {
+                                                            @Override
+                                                            public void done(ParseException e) {
+                                                                if(e == null){
+                                                                    Log.d(TAG, "Friendship removed");
+                                                                    Toast.makeText(mContext, cleanedUserName[0] + " has been removed from your friends", Toast.LENGTH_LONG).show();
+                                                                }else {
+                                                                    Log.d(TAG, e.getMessage());
+                                                                    Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
+                                                                }
+                                                            }
+                                                        });
+                                                    }else{
+                                                        Log.d(TAG, e.getMessage());
+                                                        Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
+                                                    }
+                                                }
+                                            });
+                                        }else {
+                                            Log.d(TAG, e.getMessage());
+                                            Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
                                         }
-                                    });
-                                }
+                                    }
+                                });
+                            }else {
+                                Log.d(TAG, e.getMessage());
+                                Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
                             }
                         }
                     });

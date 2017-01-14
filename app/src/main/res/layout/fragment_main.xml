@@ -39,6 +39,9 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:layout_margin="@dimen/eight_padding"
                 android:onClick="login"/>
 
             <Button
@@ -47,6 +50,9 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:layout_margin="@dimen/eight_padding"
                 android:onClick="register"/>
 
         </LinearLayout>

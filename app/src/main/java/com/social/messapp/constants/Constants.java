@@ -16,4 +16,8 @@ public class Constants {
     public static final String RECEIVER = "receiver";
     public static final String CHECKED = "checked";
     public static final String FRIENDS_TABLE = "Friends";
+    public static final String USER_ID = "user_id";
+    public static final String CHATS_TABLE = "Chats";
+    public static final String MESSAGE = "message";
+    public static final String CREATED_AT= "create_at";
 }

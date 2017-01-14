@@ -158,11 +158,13 @@ public class LoginFragment extends Fragment {
         @Override
         public void onCancel() {
             Toast.makeText(getActivity(), getString(R.string.auth_canceled), Toast.LENGTH_LONG).show();
+            mSpinner.setVisibility(View.GONE);
         }
 
         @Override
         public void onError(FacebookException error) {
             Toast.makeText(getActivity(), getString(R.string.facebook_error), Toast.LENGTH_LONG).show();
+            mSpinner.setVisibility(View.GONE);
         }
     };
 
@@ -306,6 +308,7 @@ public class LoginFragment extends Fragment {
                     {
                         Log.d(TAG, e.getMessage());
                         Toast.makeText(getActivity(), getString(R.string.twitter_email_failed), Toast.LENGTH_LONG).show();
+                        mSpinner.setVisibility(View.GONE);
                     }
                 });
             }
