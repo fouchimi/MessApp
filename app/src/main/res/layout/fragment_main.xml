@@ -19,14 +19,18 @@
             android:id="@+id/username"
             android:hint="@string/username"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"/>
 
         <EditText
             android:id="@+id/password"
             android:hint="@string/password"
             android:inputType="textPassword"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,7 +67,8 @@
             android:layout_gravity="center"
             android:paddingTop="@dimen/ten_padding"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/white" />
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/login_button"

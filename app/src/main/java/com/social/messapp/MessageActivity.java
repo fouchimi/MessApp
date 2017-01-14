@@ -115,14 +115,5 @@ public class MessageActivity extends AppCompatActivity {
     public void saveMessage(View view){
     }
 
-    private void scrollDown() {
-        mMessageListView.post(new Runnable() {
-            @Override
-            public void run() {
-                if(mAdapter.getCount() > 1){
-                    mMessageListView.setSelection(mAdapter.getCount()-1);
-                }
-            }
-        });
-    }
+
 }

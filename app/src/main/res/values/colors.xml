@@ -5,9 +5,11 @@
     <color name="colorAccent">#FF4081</color>
     <color name="boldBlack">#000000</color>
     <color name="boldGrey">#9E9E9E</color>
-    <color name="light_purple_background">#e9e4ed</color>
-    <color name="light_purple_button">#e1d2f3</color>
-    <color name="pressed_purple_button">#ba9dda</color>
+    <color name="lightPurpleBackground">#e9e4ed</color>
+    <color name="lightPurpleColor">#e1d2f3</color>
+    <color name="pressedPurpleColor">#ba9dda</color>
     <color name="focused_purple_button">#d6c3ed</color>
     <color name="white">#FFFFFF</color>
+    <color name="owner_text_color">#0085b2</color>
+    <color name="friend_text_color">#32cbff</color>
 </resources>

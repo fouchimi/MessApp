@@ -24,7 +24,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText passwordText;
     private EditText passwordText2;
     private EditText emailText;
-    private Spinner  countrySpinner;
+    //private Spinner  countrySpinner;
     private EditText cityText;
     private ParseUser currentUser;
 
@@ -37,7 +37,7 @@ public class SignUpActivity extends AppCompatActivity {
         passwordText = (EditText) findViewById(R.id.password);
         passwordText2 = (EditText) findViewById(R.id.password2);
         emailText = (EditText) findViewById(R.id.email);
-        countrySpinner = (Spinner) findViewById(R.id.country);
+        //countrySpinner = (Spinner) findViewById(R.id.country);
         cityText = (EditText) findViewById(R.id.city);
     }
 
@@ -55,22 +55,20 @@ public class SignUpActivity extends AppCompatActivity {
         final String password = passwordText.getText().toString();
         final String password2 = passwordText2.getText().toString();
         String email = emailText.getText().toString();
-        String country = countrySpinner.getSelectedItem().toString();
+        //String country = countrySpinner.getSelectedItem().toString();
         final String city = cityText.getText().toString();
         if(username.isEmpty() || password.isEmpty() ||
-                password2.isEmpty() || email.isEmpty() ||
-                country.isEmpty() || city.isEmpty()){
+                password2.isEmpty() || email.isEmpty()
+                || city.isEmpty()){
             Toast.makeText(this, getString(R.string.required), Toast.LENGTH_LONG).show();
         }
         else if(!password.equals(password2)){
             Toast.makeText(this, getString(R.string.password_mismatch), Toast.LENGTH_LONG).show();
-        }else if(country.equals(getString(R.string.country_prompt))){
-            Toast.makeText(this, getString(R.string.country_prompt), Toast.LENGTH_LONG).show();
         }else {
             currentUser.setUsername(username);
             currentUser.setPassword(password);
             currentUser.setEmail(email);
-            currentUser.put(Constants.COUNTRY, country);
+            //currentUser.put(Constants.COUNTRY, country);
             currentUser.put(Constants.LOCATION, city);
 
             currentUser.signUpInBackground(new SignUpCallback() {

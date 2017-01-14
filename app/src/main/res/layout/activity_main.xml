@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@color/light_purple_background"
+    android:background="@drawable/app_background_color"
     tools:context="com.social.messapp.LoginActivity">
 
     <include layout="@layout/content_main" />
