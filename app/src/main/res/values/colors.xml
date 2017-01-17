@@ -10,6 +10,7 @@
     <color name="pressedPurpleColor">#ba9dda</color>
     <color name="focused_purple_button">#d6c3ed</color>
     <color name="white">#FFFFFF</color>
-    <color name="owner_text_color">#0085b2</color>
-    <color name="friend_text_color">#00bfff</color>
+    <color name="owner_text_color">#00796B</color>
+    <color name="friend_text_color">#FF4081</color>
+    <color name="editTextBackground">#91f1f1f1</color>
 </resources>

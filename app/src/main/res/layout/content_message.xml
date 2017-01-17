@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_chat"
@@ -14,42 +14,44 @@
         android:id="@+id/messageListView"
         android:layout_width="wrap_content"
         android:transcriptMode="alwaysScroll"
-        android:layout_height="0px"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:divider="@null"
-        android:dividerHeight="0dp" />
-
-    <!--<TextView
-        android:id="@+id/empty_view"
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="1"
-        android:textSize="@dimen/default_text_size"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:gravity="center"
-        android:textColor="@color/boldGrey"
-        android:text="@string/default_message" /> -->
+        android:dividerHeight="0dp"
+        android:paddingBottom="@dimen/ten_padding"/>
 
     <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@color/white">
 
         <EditText
             android:id="@+id/message"
-            android:layout_width="match_parent"
+            android:layout_width="252dp"
             android:layout_height="wrap_content"
             android:gravity="top"
-            android:layout_weight="1"/>
+            android:ems="10"
+            android:layout_weight="0.72"
+            android:hint="@string/message_hint"
+            android:maxHeight="90dp"
+            android:background="@color/tw__transparent"
+            android:padding="@dimen/fifteen_padding"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/sendMessageButton"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
             android:onClick="saveMessage"
-            android:text="Send"/>
+            android:background="@drawable/ic_menu_send"
+            android:padding="@dimen/fifteen_padding"
+            android:layout_marginRight="@dimen/ten_margin"
+            android:layout_gravity="center"
+            android:text="@string/send" />
 
     </LinearLayout>
 
 
-</LinearLayout>
+</RelativeLayout>

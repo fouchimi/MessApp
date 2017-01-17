@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
     <string name="app_name">MessApp</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
@@ -307,4 +307,17 @@
     <string name="default_profile_url">http://abs.twimg.com/sticky/default_profile_images/default_profile_3_normal.png</string>
     <string name="title_activity_message">Chat</string>
     <string name="default_message">No Message Yet</string>
+
+    <!-- date formatting -->
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="format_full_friendly_date"><xliff:g id="month">%1$s</xliff:g>, <xliff:g id="day">%2$s</xliff:g></string>
+    <string name="message_hint">Type message</string>
+    <string name="send">Send</string>
+
+    <!-- SENDER ID -->
+    <string name="gcm_sender_id">id:794852879038</string>
+
+    <!-- GCM API KEY-->
+    <string name="gcm_api_key">AIzaSyA1N7gG5Pn8_ys0fID0IZV1W9YnqJAwKWg</string>
 </resources>

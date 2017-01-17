@@ -2,6 +2,8 @@ package com.social.messapp.classes;
 
 import com.parse.ParseUser;
 
+import java.util.Date;
+
 /**
  * Created by ousmane on 1/12/17.
  */
@@ -10,7 +12,7 @@ public class ChatMessage {
     private String sender;
     private String receiver;
     private String message;
-    private String date;
+    private Date date;
 
     public ChatMessage(){
     }
@@ -39,11 +41,11 @@ public class ChatMessage {
         this.message = message;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

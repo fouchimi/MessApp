@@ -19,5 +19,5 @@ public class Constants {
     public static final String USER_ID = "user_id";
     public static final String CHATS_TABLE = "Chats";
     public static final String MESSAGE = "message";
-    public static final String CREATED_AT= "create_at";
+    public static final String CREATED_AT= "createdAt";
 }

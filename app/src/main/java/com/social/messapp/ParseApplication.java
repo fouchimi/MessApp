@@ -3,7 +3,9 @@ package com.social.messapp;
 import android.app.Application;
 
 import com.parse.Parse;
+import com.parse.ParseInstallation;
 import com.parse.interceptors.ParseLogInterceptor;
+import com.parse.interceptors.ParseStethoInterceptor;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
@@ -23,10 +25,14 @@ public class ParseApplication extends Application {
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId(getApplicationContext().getString(R.string.app_id))
                 .clientKey("")
+                .addNetworkInterceptor(new ParseStethoInterceptor())
                 .addNetworkInterceptor(new ParseLogInterceptor())
                 .server(getApplicationContext().getString(R.string.server))
                 .build()
         );
+
+        // Need to register GCM token
+        ParseInstallation.getCurrentInstallation().saveInBackground();
 
     }
 }

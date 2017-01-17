@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "454922510391",
+    "firebase_url": "https://messapp34.firebaseio.com",
+    "project_id": "messapp34",
+    "storage_bucket": "messapp34.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:454922510391:android:f6c7254871c24ace",
+        "android_client_info": {
+          "package_name": "com.social.messapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "454922510391-fek74hvbrvvbvtbot4s2fj50svrp25ek.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.social.messapp",
+            "certificate_hash": "57078DC37AF827135A36E52C2E4C830D7C251BB1"
+          }
+        },
+        {
+          "client_id": "454922510391-4bmub1p8jvkqvg53n3edhcevptnnnufe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRN6VbCh7pubWEz84-89lAoCmP3i0089g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "454922510391-4bmub1p8jvkqvg53n3edhcevptnnnufe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

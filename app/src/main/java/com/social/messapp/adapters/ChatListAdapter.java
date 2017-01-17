@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.parse.ParseUser;
 import com.social.messapp.R;
 import com.social.messapp.classes.ChatMessage;
+import com.social.messapp.utils.Utility;
 
 import java.util.List;
 
@@ -57,8 +58,11 @@ public class ChatListAdapter extends BaseAdapter {
         }
 
         TextView messageView = (TextView)  convertView.findViewById(R.id.message_text_view);
+        TextView dateView = (TextView) convertView.findViewById(R.id.date);
         messageView.setText(message.getMessage());
 
+        String friendlyDate = Utility.getFriendlyDayAndTimeString(mContext, message.getDate().getTime());
+        dateView.setText(friendlyDate);
         return convertView;
     }
 }
